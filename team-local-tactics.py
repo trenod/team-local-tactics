@@ -36,6 +36,7 @@ def input_champion(prompt: str,
     while True:
         match Prompt.ask(f'[{color}]{prompt}'):
             case name if name not in champions:
+                #need to check with the server here to see if champion is available
                 print(f'The champion {name} is not available. Try again.')
             case name if name in player1:
                 print(f'{name} is already in your team. Try again.')
