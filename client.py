@@ -46,30 +46,6 @@ def print_available_champs(champions: dict[Champion]) -> None:
 
 
 
-#følgende metode kommuniserer med serveren og sjekker med den om champion er tilgjengelig,
-#serveren sjekker det opp mot hva som er registrert fra før (i cvs fil/database)
-
-
-def input_champion(prompt: str,
-                color: str,
-                champions: dict[Champion],
-                player1: list[str],
-                player2: list[str]) -> None:
-
-    # Prompt the player to choose a champion and provide the reason why
-    # certain champion cannot be selected
-    while True:
-        match Prompt.ask(f'[{color}]{prompt}'):
-            case name if name not in champions:
-                #need to check with the server here to see if champion is available
-                print(f'The champion {name} is not available. Try again.')
-            case name if name in player1:
-                print(f'{name} is already in your team. Try again.')
-            case name if name in player2:
-                print(f'{name} is in the enemy team. Try again.')
-            case _:
-                player1.append(name)
-                break
 
 
 
