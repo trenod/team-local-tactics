@@ -105,6 +105,7 @@ def main() -> None:
     player1 = []
     player2 = []
 
+    #ha på serversiden
     # Champion selection
     for _ in range(2):
         input_champion('Player 1', 'red', champions, player1, player2)
@@ -112,6 +113,7 @@ def main() -> None:
 
     print('\n')
 
+    #ha på serversiden
     # Match
     match = Match(
         Team([champions[name] for name in player1]),
