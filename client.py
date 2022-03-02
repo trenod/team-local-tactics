@@ -8,20 +8,6 @@ from core import Champion, Match, Shape, Team
 #import TCP stuff
 from socket import AF_INET, SOCK_STREAM, socket
 
-sock = socket(AF_INET, SOCK_STREAM)
-server_address = ("localhost", 5555)
-sock.connect(server_address)
-
-#client mottar et objekt fra server som kan brukes til å printe ting til spilleren
-
-sentence = input("Input lowercase sentence: ")
-sock.send(sentence.encode())
-new_sentence = sock.recv(1024).decode()
-print(f"From Server: {new_sentence}")
-sock.close()
-
-
-#konvertere til match objekt på clientside og sende det til serverside
 
 
 #henter available champs fra serveren og sender til klienten i følgende metode:
@@ -105,10 +91,28 @@ def main() -> None:
         'Each player choose a champion each time.'
         '\n')
 
-    champions = load_some_champs()
+
+    sock = socket(AF_INET, SOCK_STREAM)
+    server_address = ("localhost", 5555)
+    sock.connect(server_address)
+
+    #client mottar et objekt fra server som kan brukes til å printe ting til spilleren
+
+    #basic send/receive to/from server:
+    #sentence = input("Input lowercase sentence: ")
+    #sock.send(sentence.encode())
+    #new_sentence = sock.recv(1024).decode()
+    #print(f"From Server: {new_sentence}")
+    #sock.close()
+
+
+    #konvertere til match objekt på clientside og sende det til serverside
+
+
+
 
     #receive available champs from server over TCP:
-
+    champions = sock.recv(1024).decode()
 
     print_available_champs(champions)
     print('\n')
@@ -116,6 +120,8 @@ def main() -> None:
     #make a choice and send champion to server over TCP:
     #while getting info and what to do
 
+    champion = input("Please write the name of a champion: ")
+    sock.send(champion.encode())
 
 
     print('\n')

@@ -53,7 +53,7 @@ def main() -> None:
     sock.bind(("localhost", 5555))
     sock.listen()
 
-    done = False;
+    done = False
 
     while (done == False):
         conn1, player1_address = sock.accept()
@@ -78,16 +78,14 @@ def main() -> None:
 
     #send this to client for printing
 
-    sentence = conn.recv(1024).decode()
-    new_sentence = sentence.upper()
-    conn.send(new_sentence.encode())
-
-
-    print_available_champs(champions)
-    
+    conn1.send(champions.encode())
+    conn2.send(champions.encode())
 
     player1 = []
     player2 = []
+
+    champion1 = conn1.recv(1024).decode()
+    champion2 = conn2.recv(1024).decode()
 
     #ha på serversiden
     # Champion selection
