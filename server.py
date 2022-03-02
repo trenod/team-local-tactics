@@ -4,6 +4,7 @@ from rich.table import Table
 
 from champlistloader import load_some_champs
 from core import Champion, Match, Shape, Team
+from socket import AF_INET, SOCK_STREAM, socket
 
 
 #import TCP stuff
@@ -79,6 +80,9 @@ def main() -> None:
 
     # Print a summary
     #do this client side by sending match object to client
+
+    #code for sending match object to client goes here (to finalize the game)
+
     print_match_summary(match)
 
 

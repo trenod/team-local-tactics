@@ -94,3 +94,47 @@ def print_match_summary(match: Match) -> None:
         print('\n[blue]Blue victory! :grin:')
     else:
         print('\nDraw :expressionless:')
+
+
+    
+    def main() -> None:
+
+        print('\n'
+            'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
+            '\n'
+            'Each player choose a champion each time.'
+            '\n')
+
+    champions = load_some_champs()
+
+    #receive available champs from server over TCP:
+
+
+    print_available_champs(champions)
+    print('\n')
+
+    #make a choice and send champion to server over TCP:
+    #while getting info and what to do
+
+
+
+    print('\n')
+
+    #ha på serversiden
+    # Match
+    match = Match(
+        Team([champions[name] for name in player1]),
+        Team([champions[name] for name in player2])
+    )
+    match.play()
+
+    # Print a summary
+    #do this client side by sending match object to client
+
+    #code for sending match object to client goes here (to finalize the game)
+
+    print_match_summary(match)
+
+
+if __name__ == '__main__':
+    main()
