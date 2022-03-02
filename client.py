@@ -97,13 +97,13 @@ def print_match_summary(match: Match) -> None:
 
 
     
-    def main() -> None:
+def main() -> None:
 
-        print('\n'
-            'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
-            '\n'
-            'Each player choose a champion each time.'
-            '\n')
+    print('\n'
+        'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
+        '\n'
+        'Each player choose a champion each time.'
+        '\n')
 
     champions = load_some_champs()
 

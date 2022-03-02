@@ -4,15 +4,15 @@ from rich.table import Table
 
 from champlistloader import load_some_champs
 from core import Champion, Match, Shape, Team
-from socket import AF_INET, SOCK_STREAM, socket
-
-
-#import TCP stuff
+from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
 
 
 
 
-#class for player with data on each player that updates with both clients:
+
+
+
+#class for player with data on each player that updates with both clients?
 
 #class player 
 
@@ -47,6 +47,27 @@ def input_champion(prompt: str,
 
 def main() -> None:
 
+    sock = socket(AF_INET, SOCK_STREAM)
+    # Reuse an address
+    sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+    sock.bind(("localhost", 5555))
+    sock.listen()
+
+    done = False;
+
+    while (done == False):
+        conn1, player1_address = sock.accept()
+        conn2, player2_address = sock.accept()
+        if (conn1 and conn2):
+            done = True
+    
+
+    #basic send/receive over network:
+
+    #sentence = conn.recv(1024).decode()
+    #new_sentence = sentence.upper()
+    #conn.send(new_sentence.encode())
+
     print('\n'
           'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
           '\n'
@@ -56,8 +77,14 @@ def main() -> None:
     champions = load_some_champs()
 
     #send this to client for printing
+
+    sentence = conn.recv(1024).decode()
+    new_sentence = sentence.upper()
+    conn.send(new_sentence.encode())
+
+
     print_available_champs(champions)
-    print('\n')
+    
 
     player1 = []
     player2 = []
@@ -84,6 +111,9 @@ def main() -> None:
     #code for sending match object to client goes here (to finalize the game)
 
     print_match_summary(match)
+
+    conn1.close()
+    conn2.close()
 
 
 if __name__ == '__main__':
