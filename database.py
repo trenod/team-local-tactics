@@ -5,8 +5,8 @@ from core import Champion
 
 
 def _parse_champ(champ_text: str) -> Champion:
-    name, rock, paper, scissors = champ_text.split(sep=',')
-    return Champion(name, float(rock), float(paper), float(scissors))
+    name, rock, paper, scissors, wins, losses = champ_text.split(sep=',')
+    return ChampionStats(name, float(rock), float(paper), float(scissors), int(wins), int(losses))
 
 
 def from_csv(filename: str) -> dict[str, Champion]:
