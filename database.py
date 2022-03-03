@@ -15,13 +15,14 @@ def from_csv(filename: str) -> dict[str, Champion]:
         for line in f.readlines():
             champ = _parse_champ(line)
             champions[champ.name] = champ
+
     return champions
 
 def to_csv(filename: str, Champion, win):
-    champions = {}
-    with open(filename, 'a') as f:
+    old_stats = load_stats()
+    with open(filename, 'w') as f:
         for line in f.readlines():
-            champ = _parse_champ(line)
+            f.append(_parse_champ(line))
             champions[champ.name] = champ
     return champions
 
