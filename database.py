@@ -9,20 +9,26 @@ def _parse_champ(champ_text: str) -> ChampionStats:
     return ChampionStats(name, float(rock), float(paper), float(scissors), int(wins), int(losses))
 
 
-def from_csv(filename: str) -> dict[str, Champion]:
-    champions = {}
+def from_csv(filename: str) -> dict[ChampionStats]:
+    championsstat = {}
     with open(filename, 'r') as f:
         for line in f.readlines():
             champstat = _parse_champ(line)
-            championsstats[champ.name] = champstat
+            championsstats[champstat.name] = champstat
 
     return championsstats
 
-def to_csv(filename: str, ChampionStats, win):
+def to_csv(filename: str, Champion, win):
     old_stats = load_stats()
-    with open(filename, 'w') as f:
-        for stat in ChampionStats:
-            champions[champ.name] = champ
+    champ = Champion
+    with open(filename, 'a') as f:
+        for stat in old_stats:
+            if (stat[champ.name] == champ.name):
+                if (win):
+                    stat[champ.win] = stat[champ.wins + 1]
+                else:
+                    stat[champ.win] = stat[champ.losses + 1]
+            
             f.append(_parse_champ(stat))
             
     
