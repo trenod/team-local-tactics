@@ -13,8 +13,9 @@ def from_csv(filename: str) -> dict[ChampionStats]:
     championsstat = {}
     with open(filename, 'r') as f:
         for line in f.readlines():
-            champstat = _parse_champ(line)
-            championsstats[champstat.name] = champstat
+            name, rock, paper, scissors, wins, losses = line.split(sep=',')
+            championsstat[name] = line
+            #championsstats[champstat.name] = champstat
 
     return championsstats
 
