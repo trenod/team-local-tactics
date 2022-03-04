@@ -4,7 +4,7 @@
 from core import Champion
 
 
-def _parse_champ(champ_text: str) -> Champion:
+def _parse_champ(champ_text: str) -> ChampionStats:
     name, rock, paper, scissors, wins, losses = champ_text.split(sep=',')
     return ChampionStats(name, float(rock), float(paper), float(scissors), int(wins), int(losses))
 
@@ -13,18 +13,19 @@ def from_csv(filename: str) -> dict[str, Champion]:
     champions = {}
     with open(filename, 'r') as f:
         for line in f.readlines():
-            champ = _parse_champ(line)
-            champions[champ.name] = champ
+            champstat = _parse_champ(line)
+            championsstats[champ.name] = champstat
 
-    return champions
+    return championsstats
 
-def to_csv(filename: str, Champion, win):
+def to_csv(filename: str, ChampionStats, win):
     old_stats = load_stats()
     with open(filename, 'w') as f:
-        for line in f.readlines():
-            f.append(_parse_champ(line))
+        for stat in ChampionStats:
             champions[champ.name] = champ
-    return champions
+            f.append(_parse_champ(stat))
+            
+    
 
 
 def load_stats():
