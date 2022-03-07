@@ -25,7 +25,7 @@ def input_champion(prompt: str,
                 color: str,
                 champions: dict[Champion],
                 player1: list[str],
-                player2: list[str]) -> None:
+                player2: list[str], conn) -> None:
 
     # Prompt the player to choose a champion and provide the reason why
     # certain champion cannot be selected
@@ -90,8 +90,8 @@ def main() -> None:
     #ha på serversiden
     # Champion selection
     for _ in range(2):
-        input_champion('Player 1', 'red', champions, player1, player2)
-        input_champion('Player 2', 'blue', champions, player2, player1)
+        input_champion('Player 1', 'red', champions, player1, player2, conn1)
+        input_champion('Player 2', 'blue', champions, player2, player1, conn2)
 
     print('\n')
 
@@ -108,7 +108,10 @@ def main() -> None:
 
     #code for sending match object to client goes here (to finalize the game)
 
-    print_match_summary(match)
+    conn1.send(match.encode())
+    conn2.send(match.encode())
+
+    #print_match_summary(match)
 
     conn1.close()
     conn2.close()

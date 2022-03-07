@@ -128,16 +128,17 @@ def main() -> None:
 
     #ha på serversiden
     # Match
-    match = Match(
-        Team([champions[name] for name in player1]),
-        Team([champions[name] for name in player2])
-    )
-    match.play()
+    #match = Match(
+    #    Team([champions[name] for name in player1]),
+    #    Team([champions[name] for name in player2])
+    #)
+    #match.play()
 
     # Print a summary
     #do this client side by sending match object to client
 
     #code for sending match object to client goes here (to finalize the game)
+    match = sock.recv(1024).decode()
 
     print_match_summary(match)
 
