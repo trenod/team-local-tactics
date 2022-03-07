@@ -123,6 +123,9 @@ def main() -> None:
     champion = input("Please write the name of a champion: ")
     sock.send(champion.encode())
 
+    champion = input("Please write the name of a champion: ")
+    sock.send(champion.encode())
+
 
     print('\n')
 

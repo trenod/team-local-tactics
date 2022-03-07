@@ -30,7 +30,9 @@ def input_champion(prompt: str,
     # Prompt the player to choose a champion and provide the reason why
     # certain champion cannot be selected
     while True:
-        match Prompt.ask(f'[{color}]{prompt}'):
+        #champion1 = conn.recv(1024).decode()
+        #match Prompt.ask(f'[{color}]{prompt}'):
+        match conn.recv(1024).decode():
             case name if name not in champions:
                 #need to check with the server here to see if champion is available
                 print(f'The champion {name} is not available. Try again.')
@@ -84,10 +86,10 @@ def main() -> None:
     player1 = []
     player2 = []
 
-    champion1 = conn1.recv(1024).decode()
-    champion2 = conn2.recv(1024).decode()
+    #champion1 = conn1.recv(1024).decode()
+    #champion2 = conn2.recv(1024).decode()
 
-    #ha på serversiden
+    #ha på serversiden:
     # Champion selection
     for _ in range(2):
         input_champion('Player 1', 'red', champions, player1, player2, conn1)
