@@ -7,7 +7,7 @@ import json
 
 
 def _parse_champ(champ_text: str) -> json:
-    name, rock, paper, scissors, wins, losses = champ_text.split(sep=',')
+    name, wins, losses = champ_text.split(sep=',')
     return json(name, int(wins), int(losses))
 
 
@@ -16,8 +16,6 @@ def from_csv(filename: str) -> json:
     with open(filename, 'r') as f:
         for line in f.readlines():
             champ = _parse_champ(line)
-            #name, rock, paper, scissors, wins, losses = line.split(sep=',')
-            #championsstat[name] = name
             championsstats[champ.name] = champ
 
     return championsstats
