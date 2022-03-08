@@ -120,17 +120,20 @@ def main() -> None:
     #make a choice and send champion to server over TCP:
     #while getting info and what to do
 
-    champion = input("Please write the name of a champion: ")
-    sock.send(champion.encode())
+    while True:
+        champion = input("Please write the name of a champion: ")
+        sock.send(champion.encode())
 
-    response = sock.recv(1024).decode()
-    print(response)
+        response = sock.recv(1024).decode()
+        if (response == 'done'):
+            break
+        print(response)
 
-    champion = input("Please write the name of a champion: ")
-    sock.send(champion.encode())
+    #champion = input("Please write the name of a champion: ")
+    #sock.send(champion.encode())
 
-    response = sock.recv(1024).decode()
-    print(response)
+    #response = sock.recv(1024).decode()
+    #print(response)
 
 
     print('\n')

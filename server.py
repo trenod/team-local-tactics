@@ -44,7 +44,10 @@ def input_champion(prompt: str,
                 conn.send('{name} is in the enemy team. Try again.')
             case _:
                 player1.append(name)
-                conn.send('The champion {name} has been added.')
+
+                if (player1.__sizeof__ == 2):
+                    conn.send('done')
+                    
                 break
 
 
