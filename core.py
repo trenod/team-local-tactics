@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 from enum import Enum
 from random import random, shuffle
+import winsound
 
 _BEATS = {
     (1, 3),
     (3, 2),
     (2, 1)
 }
+
 
 
 class Shape(Enum):
@@ -37,6 +39,7 @@ class PairThrow:
     """
     red: Shape
     blue: Shape
+
 
 
 class Champion:
