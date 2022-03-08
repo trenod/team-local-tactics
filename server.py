@@ -35,13 +35,16 @@ def input_champion(prompt: str,
         match conn.recv(1024).decode():
             case name if name not in champions:
                 #need to check with the server here to see if champion is available
-                print(f'The champion {name} is not available. Try again.')
+                #so the following needs to be sent to the client depending on outcome:
+                #print(f'The champion {name} is not available. Try again.')
+                conn.send('The champion {name} is not available. Try again.'.encode())
             case name if name in player1:
-                print(f'{name} is already in your team. Try again.')
+                conn.send('{name} is already in your team. Try again.')
             case name if name in player2:
-                print(f'{name} is in the enemy team. Try again.')
+                conn.send('{name} is in the enemy team. Try again.')
             case _:
                 player1.append(name)
+                conn.send('The champion {name} has been added.')
                 break
 
 
