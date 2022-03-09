@@ -124,6 +124,7 @@ def main() -> None:
         champion = input("Please write the name of a champion: ")
         sock.send(champion.encode())
 
+        #parse og sende som tekst
         response = sock.recv(1024).decode()
         if (response == 'done'):
             break
