@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from random import random, shuffle
-import winsound
+#import winsound
 
 _BEATS = {
     (1, 3),
