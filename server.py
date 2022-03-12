@@ -55,6 +55,7 @@ def input_champion(prompt: str,
 
 def main() -> None:
 
+    #opretter TCP socket
     sock = socket(AF_INET, SOCK_STREAM)
     # Reuse an address
     sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)

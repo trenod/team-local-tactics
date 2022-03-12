@@ -92,6 +92,7 @@ def main() -> None:
         '\n')
 
 
+    #opretter TCP socket
     sock = socket(AF_INET, SOCK_STREAM)
     server_address = ("localhost", 5555)
     sock.connect(server_address)
