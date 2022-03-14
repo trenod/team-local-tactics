@@ -116,7 +116,7 @@ def main() -> None:
     #need to receive object as text and then convert to champion object
     champions_as_text = sock.recv(1024).decode()
 
-    champions = from_string_to_champions
+    champions = from_string_to_champions(champions_as_text)
 
     print_available_champs(champions)
     print('\n')
