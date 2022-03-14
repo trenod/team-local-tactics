@@ -18,6 +18,15 @@ def from_csv(filename: str) -> dict[str, Champion]:
 def load_some_champs():
     return from_csv('some_champs.txt')
 
+def from_string_to_champions(champ_string: str) -> dict[str, Champion]:
+    champions = {}
+    champlist = champ_string.split(sep=' ')
+    for line in champlist:
+        champ = _parse_champ(line)
+        champions[champ.name] = champ
+    return champions
+
+
 
 def from_csv_to_string(filename: str) -> str:
     champions = ''

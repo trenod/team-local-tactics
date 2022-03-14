@@ -3,7 +3,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import load_some_champs
+from champlistloader import load_some_champs, from_string_to_champions
 from core import Champion, Match, Shape, Team
 #import TCP stuff
 from socket import AF_INET, SOCK_STREAM, socket
@@ -114,7 +114,9 @@ def main() -> None:
 
     #receive available champs from server over TCP,
     #need to receive object as text and then convert to champion object
-    champions = sock.recv(1024).decode()
+    champions_as_text = sock.recv(1024).decode()
+
+    champions = from_string_to_champions
 
     print_available_champs(champions)
     print('\n')
