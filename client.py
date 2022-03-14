@@ -112,7 +112,8 @@ def main() -> None:
 
 
 
-    #receive available champs from server over TCP:
+    #receive available champs from server over TCP,
+    #need to receive object as text and then convert to champion object
     champions = sock.recv(1024).decode()
 
     print_available_champs(champions)

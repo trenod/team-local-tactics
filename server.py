@@ -64,10 +64,13 @@ def main() -> None:
 
     done = False
 
+    print('Listening for clients to connect...')
+
     while (done == False):
         conn1, player1_address = sock.accept()
         conn2, player2_address = sock.accept()
         if (conn1 and conn2):
+            print('Both clients connected!')
             done = True
     
 
@@ -86,6 +89,7 @@ def main() -> None:
     champions = load_some_champs()
 
     #send this to client for printing
+    #need to parse champions object as text and send to client
 
     conn1.send(champions.encode())
     conn2.send(champions.encode())
