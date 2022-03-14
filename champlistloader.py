@@ -19,13 +19,14 @@ def load_some_champs():
     return from_csv('some_champs.txt')
 
 
-def from_csv_to_string_list(filename: str) -> list(str):
-    champions = []
+def from_csv_to_string(filename: str) -> str:
+    champions = ''
     with open(filename, 'r') as f:
         for line in f.readlines():
             champ = line
-            champions.append(champ)
+            champ += ' '
+            champions += champ
     return champions
 
 def load_some_champs_as_string_list():
-    return from_csv_to_string_list('some_champs.txt')
+    return from_csv_to_string('some_champs.txt')

@@ -2,7 +2,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import load_some_champs
+from champlistloader import load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
 
@@ -86,7 +86,9 @@ def main() -> None:
           'Each player choose a champion each time.'
           '\n')
 
-    champions = load_some_champs()
+    champions = load_some_champs_as_string()
+
+
 
     #send this to client for printing
     #need to parse champions object as text and send to client
