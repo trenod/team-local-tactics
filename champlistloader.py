@@ -37,5 +37,5 @@ def from_csv_to_string(filename: str) -> str:
             champions += champ
     return champions
 
-def load_some_champs_as_string_list():
+def load_some_champs_as_string():
     return from_csv_to_string('some_champs.txt')
