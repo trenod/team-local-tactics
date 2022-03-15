@@ -94,7 +94,8 @@ def main() -> None:
 
     #opretter TCP socket
     sock = socket(AF_INET, SOCK_STREAM)
-    server_address = ("localhost", 5555)
+    #server_address = ("192.168.1.132", 5555)
+    server_address = ("127.0.0.1", 5555)
     sock.connect(server_address)
 
     #client mottar et objekt fra server som kan brukes til å printe ting til spilleren

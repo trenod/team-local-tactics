@@ -33,8 +33,9 @@ def from_csv_to_string(filename: str) -> str:
     with open(filename, 'r') as f:
         for line in f.readlines():
             champ = line
-            champ += ' '
             champions += champ
+            champions += ' '
+
     return champions
 
 def load_some_champs_as_string():
