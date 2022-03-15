@@ -156,7 +156,11 @@ def main() -> None:
     #do this client side by sending match object to client
 
     #code for sending match object to client goes here (to finalize the game)
+
+    
     match = sock.recv(1024).decode()
+
+    #parse string til match objekt
 
     print_match_summary(match)
 

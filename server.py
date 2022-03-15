@@ -40,14 +40,14 @@ def input_champion(prompt: str,
                 #print(f'The champion {name} is not available. Try again.')
                 conn.send('The champion {name} is not available. Try again.'.encode())
             case name if name in player1:
-                conn.send('{name} is already in your team. Try again.')
+                conn.send('{name} is already in your team. Try again.'.encode())
             case name if name in player2:
-                conn.send('{name} is in the enemy team. Try again.')
+                conn.send('{name} is in the enemy team. Try again.'.encode())
             case _:
                 player1.append(name)
 
                 if (player1.__sizeof__ == 2):
-                    conn.send('done')
+                    conn.send('done'.encode)
                     
                 break
 
@@ -124,6 +124,7 @@ def main() -> None:
 
     #code for sending match object to client goes here (to finalize the game)
 
+    #parse match objekt til string og sende til begge klienter
     conn1.send(match.encode())
     conn2.send(match.encode())
 
