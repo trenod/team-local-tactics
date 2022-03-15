@@ -32,7 +32,8 @@ def input_champion(prompt: str,
     while True:
         #champion1 = conn.recv(1024).decode()
         #match Prompt.ask(f'[{color}]{prompt}'):
-        match conn.recv(1024).decode():
+        answer = conn.recv(1024).decode()
+        match answer:
             case name if name not in champions:
                 #need to check with the server here to see if champion is available
                 #so the following needs to be sent to the client depending on outcome:
