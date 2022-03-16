@@ -5,7 +5,7 @@ from rich.table import Table
 from champlistloader import from_match_to_string, load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
-from database import to_csv
+from database import to_csv, from_csv_to_string
 
 
 
