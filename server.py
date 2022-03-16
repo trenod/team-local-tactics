@@ -1,6 +1,7 @@
 from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
+import pickle
 
 from champlistloader import from_string_to_champions, load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
@@ -123,7 +124,6 @@ def main() -> None:
 
     # Champion selection
     for _ in range(2):
-        print('her')
         input_champion('Player 1', 'red', champions, player1, player2, conn1)
         input_champion('Player 2', 'blue', champions, player2, player1, conn2)
 
@@ -144,6 +144,15 @@ def main() -> None:
     #conn2.send(match_as_string.encode())
 
     #sending match using pickle
+
+    #pickled_match = pickle.dumps(match)
+    
+    f = open('data.pickle', 'wb')
+    pickled_match = pickle.dump(match, f)
+    f.close()
+
+    conn1.send(pickled_match)
+    conn2.send(pickled_match)
 
     conn1.close()
     conn2.close()

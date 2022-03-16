@@ -2,6 +2,7 @@
 from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
+import pickle
 
 from champlistloader import load_some_champs, from_string_to_champions, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
@@ -39,9 +40,7 @@ def print_available_champs(champions: dict[Champion]) -> None:
 
 
 #def print_match_summary(match: Match) -> None:
-def print_match_summary(matchstring: str) -> None:
-    rounddetails, scoredetails = matchstring.split(sep=' ')
-    rounds = rounddetails[-1]
+def print_match_summary(match: Match) -> None:
 
     EMOJI = {
         Shape.ROCK: ':raised_fist-emoji:',
@@ -50,7 +49,7 @@ def print_match_summary(matchstring: str) -> None:
     }
 
     # For each round print a table with the results
-    for index, round in enumerate(rounds):
+    for index, round in enumerate(match.rounds):
 
         # Create a table containing the results of the round
         round_summary = Table(title=f'Round {index+1}')
@@ -127,14 +126,20 @@ def main() -> None:
 
     #receive match from server as string:
     
-    match = sock.recv(1024).decode()
+    pickled_match = sock.recv(1024)
+
+    f = open('data.pickle', 'rb')
+    match_object = pickle.load(f)
+    f.close()
+
+    #match = pickle.load(match_object)
 
     #parse string til match objekt
 
     #need to change print_match_summary so it receives
     #a string instead of a match object, and handles that instead
 
-    print_match_summary(match)
+    print_match_summary(match_object)
 
 
 if __name__ == '__main__':
