@@ -12,7 +12,6 @@ def _parse_champ(champ_text: str) -> Champion:
     #right here there is a strange bug that prevents the program from
     #finishing running. i have tried many things and asked TA's, but 
     #no solution has been found.
-    print(champ_text)
     return Champion(name, float(rock), float(paper), float(scissors))
 
 
@@ -30,15 +29,16 @@ def load_some_champs():
 
 def from_string_to_champions(champ_string: str) -> dict[str, Champion]:
     champions = {}
-    champlist = champ_string.split(sep=' ')
-    for line in champlist:
+    champlist = champ_string.split(sep='\n')
+    for line in champlist: 
+        #print(line)
         champ = _parse_champ(line)
         champions[champ.name] = champ
     return champions
 
 
 
-def from_csv_to_string(filename: str) -> str:
+"""def from_csv_to_string(filename: str) -> str:
     champions = ''
     with open(filename, 'r') as f:
         for line in f.readlines():
@@ -46,7 +46,19 @@ def from_csv_to_string(filename: str) -> str:
             champions += champ
             champions += ' '
 
+    return champions"""
+
+def from_csv_to_string(filename: str) -> str:
+    champions = ''
+    with open(filename, 'r') as f:
+        for line in f.readlines():
+            champions += line
+
     return champions
 
 def load_some_champs_as_string():
     return from_csv_to_string('some_champs.txt')
+
+
+#x = load_some_champs_as_string()
+#print(from_string_to_champions(x))

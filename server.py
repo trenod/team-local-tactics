@@ -2,7 +2,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import load_some_champs, load_some_champs_as_string
+from champlistloader import from_string_to_champions, load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
 from database import to_csv, from_csv_to_string
@@ -13,27 +13,31 @@ def input_champion(prompt: str,
                 color: str,
                 champions: dict[Champion],
                 player1: list[str],
-                player2: list[str], conn) -> None:
+                player2: list[str], conn:socket) -> None:
 
     # Prompt the player to choose a champion and provide the reason why
     # certain champion cannot be selected
+   
     while True:
         #champion1 = conn.recv(1024).decode()
         #match Prompt.ask(f'[{color}]{prompt}'):
-        name = conn.recv(1024).decode()
+        name = conn.recv(2048).decode()
+        
         match name:
             case name if name not in champions:
-                conn.send('The champion {name} is not available. Try again.'.encode())
+                conn.send(f'The champion {name} is not available. Try again.'.encode())
             case name if name in player1:
-                conn.send('{name} is already in your team. Try again.'.encode())
+                conn.send(f'{name} is already in your team. Try again.'.encode())
             case name if name in player2:
-                conn.send('{name} is in the enemy team. Try again.'.encode())
+                conn.send(f'{name} is in the enemy team. Try again.'.encode())
             case _:
+                #print(name)
                 player1.append(name)
 
-                if (player1.__sizeof__ == 2):
+                if (len(player1) == 2 or len(player2) == 2):
                     conn.send('done'.encode())
-                    
+                else:
+                    conn.send('Please write the name of a champion: '.encode())   
                 break
 
 
@@ -53,6 +57,7 @@ def get_stats_as_string(filename: str) -> str:
     return playerstats
 
 
+#this is not used
 def from_match_to_string(match: Match) -> str:
     match_as_string = ''
     index = 1
@@ -91,26 +96,26 @@ def main() -> None:
 
     print('Listening for clients to connect...')
 
-    while (done == False):
-        conn1, player1_address = sock.accept()
-        conn2, player2_address = sock.accept()
-        if (conn1 and conn2):
+    #while not done:
+    conn1, player1_address = sock.accept()
+    conn2, player2_address = sock.accept()
+
+
+
+    """   if (conn1 and conn2):
             print('Both clients connected!')
-            done = True
+            done = True"""
     
 
-    print('\n'
-          'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
-          '\n'
-          'Each player choose a champion each time.'
-          '\n')
 
-    champions = load_some_champs_as_string()
 
-    conn1.send(champions.encode())
-    conn2.send(champions.encode())
+    champions_as_text = load_some_champs_as_string()
+    champions = from_string_to_champions(champions_as_text)
 
-    stats = get_stats_as_string(stats.txt)
+    #conn1.send(champions.encode())
+    #conn2.send(champions.encode())
+
+    #stats = get_stats_as_string(stats.txt)
 
     player1 = []
     player2 = []
@@ -118,6 +123,7 @@ def main() -> None:
 
     # Champion selection
     for _ in range(2):
+        print('her')
         input_champion('Player 1', 'red', champions, player1, player2, conn1)
         input_champion('Player 2', 'blue', champions, player2, player1, conn2)
 
@@ -130,13 +136,14 @@ def main() -> None:
     )
     match.play()
 
-    save_stats(match)
+    #save_stats(match)
 
-    match_as_string = from_match_to_string(match)
+    #match_as_string = from_match_to_string(match)
     
-    conn1.send(match_as_string.encode())
-    conn2.send(match_as_string.encode())
+    #conn1.send(match_as_string.encode())
+    #conn2.send(match_as_string.encode())
 
+    #sending match using pickle
 
     conn1.close()
     conn2.close()

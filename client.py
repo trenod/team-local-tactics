@@ -3,7 +3,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import load_some_champs, from_string_to_champions
+from champlistloader import load_some_champs, from_string_to_champions, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 #import TCP stuff
 from socket import AF_INET, SOCK_STREAM, socket
@@ -38,7 +38,10 @@ def print_available_champs(champions: dict[Champion]) -> None:
 #følgende metode printer match summary til player, etter å ha gjort matchen via serveren:
 
 
-def print_match_summary(match: Match) -> None:
+#def print_match_summary(match: Match) -> None:
+def print_match_summary(matchstring: str) -> None:
+    rounddetails, scoredetails = matchstring.split(sep=' ')
+    rounds = rounddetails[-1]
 
     EMOJI = {
         Shape.ROCK: ':raised_fist-emoji:',
@@ -47,7 +50,7 @@ def print_match_summary(match: Match) -> None:
     }
 
     # For each round print a table with the results
-    for index, round in enumerate(match.rounds):
+    for index, round in enumerate(rounds):
 
         # Create a table containing the results of the round
         round_summary = Table(title=f'Round {index+1}')
@@ -100,23 +103,23 @@ def main() -> None:
 
 
 
-    champions_as_text = sock.recv(1024).decode()
+    #champions_as_text = sock.recv(1024).decode()
 
+    champions_as_text = load_some_champs_as_string()
     champions = from_string_to_champions(champions_as_text)
 
-    print_available_champs(champions)
-    print('\n')
-
+    """print_available_champs(champions)"""
+    
     #make a choice and send champion to server over TCP:
     #while getting info and what to do
-    champion = input("Please write the name of a champion: ")
-
-    while True:
+    
+    response = 'Please write the name of a champion: ' 
+    while response != 'done':
+        print_available_champs(champions)
+        champion = input(response)
         sock.send(champion.encode())
         #parse og sende som tekst
-        response = sock.recv(1024).decode()
-        if (response == 'done'):
-            break
+        response = sock.recv(2048).decode()
         print(response)
 
 
