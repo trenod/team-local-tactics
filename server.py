@@ -2,7 +2,7 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import from_match_to_string, load_some_champs, load_some_champs_as_string
+from champlistloader import load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
 from database import to_csv, from_csv_to_string
@@ -51,6 +51,26 @@ def save_stats(match: Match) -> None:
 def get_stats_as_string(filename: str) -> str:
     playerstats = from_csv_to_string(filename)
     return playerstats
+
+
+def from_match_to_string(match: Match) -> str:
+    match_as_string = ''
+    index = 1
+    for round in enumerate(match.rounds):
+        for key in round:
+            red, blue = key.split(', ')
+            match_as_string += round[key].red
+            match_as_string += ','
+            match_as_string += round[key].blue
+            index += 1
+    
+    match_as_string += ' '
+    red_score, blue_score = match.score
+    match_as_string += red_score
+    match_as_string += ','
+    match_as_string += blue_score
+
+    return match_as_string
 
 
 def main() -> None:

@@ -36,9 +36,7 @@ def from_string_to_champions(champ_string: str) -> dict[str, Champion]:
         champions[champ.name] = champ
     return champions
 
-def from_match_to_string(match: Match) -> str:
-    match_as_string = ''
-    return match_as_string
+
 
 def from_csv_to_string(filename: str) -> str:
     champions = ''
