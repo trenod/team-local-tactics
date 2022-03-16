@@ -17,8 +17,16 @@ def from_csv(filename: str) -> json:
         for line in f.readlines():
             champ = _parse_champ(line)
             championsstats[champ.name] = champ
-
     return championsstats
+
+def from_csv_to_string(filename: str) -> str:
+    championsstats = ''
+    with open(filename, 'r') as f:
+        for line in f.readlines():
+            championstats += line
+            championsstats += ' '
+    return championsstats
+
 
 def to_csv(filename: str, player, win):
     old_stats = load_stats()
@@ -35,6 +43,6 @@ def to_csv(filename: str, player, win):
             
     
 
-
+    
 def load_stats():
     return from_csv('stats.txt')

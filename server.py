@@ -48,6 +48,9 @@ def save_stats(match: Match) -> None:
     to_csv('stats.txt', winner, True)
     to_csv('stats.txt', loser, False)
 
+def get_stats_as_string(filename: str) -> str:
+    playerstats = from_csv_to_string(filename)
+    return playerstats
 
 
 def main() -> None:
@@ -79,9 +82,10 @@ def main() -> None:
 
     champions = load_some_champs_as_string()
 
-
     conn1.send(champions.encode())
     conn2.send(champions.encode())
+
+    stats = get_stats_as_string(stats.txt)
 
     player1 = []
     player2 = []
@@ -102,6 +106,7 @@ def main() -> None:
     match.play()
 
     save_stats(match)
+
     match_as_string = from_match_to_string(match)
     
     conn1.send(match_as_string.encode())
