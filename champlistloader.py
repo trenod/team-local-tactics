@@ -3,6 +3,15 @@ from core import Champion, Match
 
 def _parse_champ(champ_text: str) -> Champion:
     name, rock, paper, scissors = champ_text.split(sep=',')
+    #champ_text_list = champ_text.split(",")
+    #name = champ_text_list[0]
+    #rock = champ_text_list[1]
+    #paper = champ_text_list[2]
+    #scissors = champ_text_list[3]
+    #name, rock, paper, scissors = champ_text.split(",")
+    #right here there is a strange bug that prevents the program from
+    #finishing running. i have tried many things and asked TA's, but 
+    #no solution has been found.
     print(champ_text)
     return Champion(name, float(rock), float(paper), float(scissors))
 

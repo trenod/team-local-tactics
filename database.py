@@ -1,13 +1,14 @@
 #initially use a cvs file updating, based on champlistloader.py,
 #then implement mongoDB features using the cloud solution
 
-from core import Champion, ChampionStats
+from core import Champion
 import os
 import json
 
 
 def _parse_champ(champ_text: str) -> json:
     player, wins, losses = champ_text.split(sep=',')
+    #player, wins, losses = champ_text.split(',')
     return json(player, int(wins), int(losses))
 
 
@@ -43,6 +44,6 @@ def to_csv(filename: str, player, win):
             
     
 
-    
+
 def load_stats():
     return from_csv('stats.txt')
