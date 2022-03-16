@@ -62,18 +62,18 @@ def from_match_to_string(match: Match) -> str:
             match_as_string += round[key].red
             match_as_string += ','
             match_as_string += round[key].blue
+            match_as_string += 'round'
             index += 1
     
     match_as_string += ','
     match_as_string += index
-    match_as_string += ','
-    match_as_string += 'SENTINEL1'
+    match_as_string += ' SENTINEL1 '
     match_as_string += ' '
     red_score, blue_score = match.score
     match_as_string += red_score
     match_as_string += ','
     match_as_string += blue_score
-    match_as_string += 'SENTINEL2'
+    match_as_string += ' SENTINEL2 '
 
     return match_as_string
 
