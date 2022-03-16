@@ -2,23 +2,11 @@ from rich import print
 from rich.prompt import Prompt
 from rich.table import Table
 
-from champlistloader import load_some_champs, load_some_champs_as_string
+from champlistloader import from_match_to_string, load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
 
 
-
-
-
-
-
-#class for player with data on each player that updates with both clients?
-
-#class player 
-
-
-#følgende metode kommuniserer med serveren og sjekker med den om champion er tilgjengelig,
-#serveren sjekker det opp mot hva som er registrert fra før (i cvs fil/database)
 
 
 def input_champion(prompt: str,
@@ -35,9 +23,6 @@ def input_champion(prompt: str,
         name = conn.recv(1024).decode()
         match name:
             case name if name not in champions:
-                #need to check with the server here to see if champion is available
-                #so the following needs to be sent to the client depending on outcome:
-                #print(f'The champion {name} is not available. Try again.')
                 conn.send('The champion {name} is not available. Try again.'.encode())
             case name if name in player1:
                 conn.send('{name} is already in your team. Try again.'.encode())
@@ -47,7 +32,7 @@ def input_champion(prompt: str,
                 player1.append(name)
 
                 if (player1.__sizeof__ == 2):
-                    conn.send('done'.encode)
+                    conn.send('done'.encode())
                     
                 break
 
@@ -75,12 +60,6 @@ def main() -> None:
             done = True
     
 
-    #basic send/receive over network:
-
-    #sentence = conn.recv(1024).decode()
-    #new_sentence = sentence.upper()
-    #conn.send(new_sentence.encode())
-
     print('\n'
           'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
           '\n'
@@ -90,20 +69,13 @@ def main() -> None:
     champions = load_some_champs_as_string()
 
 
-
-    #send this to client for printing
-    #need to parse champions object as text and send to client
-
     conn1.send(champions.encode())
     conn2.send(champions.encode())
 
     player1 = []
     player2 = []
 
-    #champion1 = conn1.recv(1024).decode()
-    #champion2 = conn2.recv(1024).decode()
 
-    #ha på serversiden:
     # Champion selection
     for _ in range(2):
         input_champion('Player 1', 'red', champions, player1, player2, conn1)
@@ -111,7 +83,6 @@ def main() -> None:
 
     print('\n')
 
-    #ha på serversiden
     # Match
     match = Match(
         Team([champions[name] for name in player1]),
@@ -119,16 +90,11 @@ def main() -> None:
     )
     match.play()
 
-    # Print a summary
-    #do this client side by sending match object to client
+    match_as_string = from_match_to_string(match)
+    
+    conn1.send(match_as_string.encode())
+    conn2.send(match_as_string.encode())
 
-    #code for sending match object to client goes here (to finalize the game)
-
-    #parse match objekt til string og sende til begge klienter
-    conn1.send(match.encode())
-    conn2.send(match.encode())
-
-    #print_match_summary(match)
 
     conn1.close()
     conn2.close()

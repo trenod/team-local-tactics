@@ -98,23 +98,8 @@ def main() -> None:
     server_address = ("127.0.0.1", 5555)
     sock.connect(server_address)
 
-    #client mottar et objekt fra server som kan brukes til å printe ting til spilleren
-
-    #basic send/receive to/from server:
-    #sentence = input("Input lowercase sentence: ")
-    #sock.send(sentence.encode())
-    #new_sentence = sock.recv(1024).decode()
-    #print(f"From Server: {new_sentence}")
-    #sock.close()
 
 
-    #konvertere til match objekt på clientside og sende det til serverside
-
-
-
-
-    #receive available champs from server over TCP,
-    #need to receive object as text and then convert to champion object
     champions_as_text = sock.recv(1024).decode()
 
     champions = from_string_to_champions(champions_as_text)
@@ -124,39 +109,20 @@ def main() -> None:
 
     #make a choice and send champion to server over TCP:
     #while getting info and what to do
+    champion = input("Please write the name of a champion: ")
 
     while True:
-        champion = input("Please write the name of a champion: ")
         sock.send(champion.encode())
-
         #parse og sende som tekst
         response = sock.recv(1024).decode()
         if (response == 'done'):
             break
         print(response)
 
-    #champion = input("Please write the name of a champion: ")
-    #sock.send(champion.encode())
-
-    #response = sock.recv(1024).decode()
-    #print(response)
-
 
     print('\n')
 
-    #ha på serversiden
-    # Match
-    #match = Match(
-    #    Team([champions[name] for name in player1]),
-    #    Team([champions[name] for name in player2])
-    #)
-    #match.play()
-
-    # Print a summary
-    #do this client side by sending match object to client
-
-    #code for sending match object to client goes here (to finalize the game)
-
+    #receive match from server as string:
     
     match = sock.recv(1024).decode()
 

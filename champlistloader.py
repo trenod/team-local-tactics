@@ -1,8 +1,9 @@
-from core import Champion
+from core import Champion, Match
 
 
 def _parse_champ(champ_text: str) -> Champion:
     name, rock, paper, scissors = champ_text.split(sep=',')
+    print(champ_text)
     return Champion(name, float(rock), float(paper), float(scissors))
 
 
@@ -26,7 +27,8 @@ def from_string_to_champions(champ_string: str) -> dict[str, Champion]:
         champions[champ.name] = champ
     return champions
 
-
+def from_match_to_string(match: Match) -> str:
+    
 
 def from_csv_to_string(filename: str) -> str:
     champions = ''
