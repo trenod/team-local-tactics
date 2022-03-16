@@ -5,7 +5,7 @@ from rich.table import Table
 from champlistloader import from_match_to_string, load_some_champs, load_some_champs_as_string
 from core import Champion, Match, Shape, Team
 from socket import AF_INET, SOCK_STREAM, socket, SOL_SOCKET, SO_REUSEADDR
-
+from database import to_csv
 
 
 
@@ -36,6 +36,17 @@ def input_champion(prompt: str,
                     
                 break
 
+
+def save_stats(match: Match) -> None:
+    red_score, blue_score = match.score
+    if (red_score > blue_score):
+        winner = 'player1'
+        loser = 'player2'
+    else:
+        winner = 'player2'
+        loser = 'player1'
+    to_csv('stats.txt', winner, True)
+    to_csv('stats.txt', loser, False)
 
 
 
@@ -90,6 +101,7 @@ def main() -> None:
     )
     match.play()
 
+    save_stats(match)
     match_as_string = from_match_to_string(match)
     
     conn1.send(match_as_string.encode())

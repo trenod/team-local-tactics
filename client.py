@@ -128,6 +128,9 @@ def main() -> None:
 
     #parse string til match objekt
 
+    #need to change print_match_summary so it receives
+    #a string instead of a match object, and handles that instead
+
     print_match_summary(match)
 
 

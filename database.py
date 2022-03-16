@@ -7,8 +7,8 @@ import json
 
 
 def _parse_champ(champ_text: str) -> json:
-    name, wins, losses = champ_text.split(sep=',')
-    return json(name, int(wins), int(losses))
+    player, wins, losses = champ_text.split(sep=',')
+    return json(player, int(wins), int(losses))
 
 
 def from_csv(filename: str) -> json:
@@ -20,9 +20,9 @@ def from_csv(filename: str) -> json:
 
     return championsstats
 
-def to_csv(filename: str, Champion, win):
+def to_csv(filename: str, player, win):
     old_stats = load_stats()
-    champ = Champion
+    champ = player
     os.remove('stats.txt')
     with open(filename, 'a') as f:
         for stat in old_stats:

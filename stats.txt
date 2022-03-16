@@ -1,9 +1,2 @@
-Vain,0,0
-Dr. Yi,0,0
-Twist,0,0
-Guan,0,0
-Siva,0,0
-Katina,0,0
-Asir,0,0
-Cactus,0,0
-Luanne,0,0
+player1,0,0
+player2,0,0
